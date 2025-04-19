@@ -9,11 +9,17 @@ class StudentOperations {
    this.students = new ArrayList<>();
   }
 
-  // Method to add students to the ArrayList
-  public void addStudents(Student student) {
-   students.add(student);
-   System.out.println("Student added.");
-  }
+  // Method to add students to the ArrayList with exceptions
+  public void addStudents(Student student) throws DuplicatePRNException, InvalidCGPAException {
+     if (searchByPRN(student.getPRN()) != null) {
+         throw new DuplicatePRNException("PRN already exists!");
+     }
+     if (student.getCGPA() < 0.0 || student.getCGPA() > 10.0) {
+         throw new InvalidCGPAException("Invalid CGPA entered! Must be between 0.0 and 10.0.");
+     }
+     students.add(student);
+     System.out.println("Student added successfully.");
+ }
 
   // Method to Display Student Details
   public void displayStudents() {
