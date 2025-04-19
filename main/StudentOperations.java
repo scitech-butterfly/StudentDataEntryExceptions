@@ -16,15 +16,21 @@ class StudentOperations {
         this.students = new ArrayList<>();
     }
 
-    // Method to add students to the ArrayList with exceptions
+    // Method to add student
     public void addStudents(Student student)
-            throws DuplicatePRNException, InvalidCGPAException, StudentNotFoundException {
-        if (searchByPRN(student.getPRN()) != null) {
-            throw new DuplicatePRNException("PRN already exists!");
+            throws DuplicatePRNException, InvalidCGPAException {
+        try {
+            if (searchByPRN(student.getPRN()) != null) {
+                throw new DuplicatePRNException("PRN already exists!");
+            }
+        } catch (StudentNotFoundException e) {
+            // Student does not exist – this is expected. Do nothing.
         }
+
         if (student.getCGPA() < 0.0 || student.getCGPA() > 10.0) {
             throw new InvalidCGPAException("Invalid CGPA entered! Must be between 0.0 and 10.0.");
         }
+
         students.add(student);
         System.out.println("Student added successfully.");
     }
