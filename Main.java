@@ -35,19 +35,24 @@ class Main {
 
    switch (choice) {
     case 1: // Add Student
-     System.out.print("Enter Name: ");
-     String name = scan.nextLine();
-     System.out.print("Enter PRN: ");
-     long prn = Long.parseLong(scan.nextLine());
-     System.out.print("Enter Branch: ");
-     String branch = scan.nextLine();
-     System.out.print("Enter Batch: ");
-     String batch = scan.nextLine();
-     System.out.print("Enter CGPA: ");
-     double cgpa = Double.parseDouble(scan.nextLine());
+     try {
+        System.out.print("Enter Name: ");
+        String name = scan.nextLine();
+        System.out.print("Enter PRN: ");
+        long prn = Long.parseLong(scan.nextLine());
+        System.out.print("Enter Branch: ");
+        String branch = scan.nextLine();
+        System.out.print("Enter Batch: ");
+        String batch = scan.nextLine();
+        System.out.print("Enter CGPA: ");
+        double cgpa = Double.parseDouble(scan.nextLine());
 
-     Student student = new Student(name, prn, branch, batch, cgpa);
-     operations.addStudents(student);
+        Student student = new Student(name, prn, branch, batch, cgpa);
+        operations.addStudents(student);
+     } catch (DuplicatePRNException | InvalidCGPAException e) {
+        System.out.println("Error: " + e.getMessage());
+     }
+
      break;
 
     case 2: // Display Students
@@ -55,16 +60,15 @@ class Main {
      break;
 
     case 3: // Search Student by PRN
-     System.out.print("Enter PRN to search: ");
-     prn = Long.parseLong(scan.nextLine());
-     Student foundByPrn = operations.searchByPRN(prn);
-     if (foundByPrn != null) {
-      foundByPrn.display();
-     } else {
-      System.out.println("Student not found.");
-     }
+     try {
+            System.out.print("Enter PRN to search: ");
+            long prn = Long.parseLong(scan.nextLine());
+            Student found = operations.searchByPRN(prn);
+            found.display();
+        } catch (StudentNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
      break;
-
     case 4: // Search Student by Name
      System.out.print("Enter Name to search: ");
      name = scan.nextLine();
@@ -77,34 +81,43 @@ class Main {
      break;
 
     case 5: // Search Student by Position
-     System.out.print("Enter position (index starts from 0): ");
-     int position = Integer.parseInt(scan.nextLine());
-     Student foundByPosition = operations.searchByPosition(position);
-     if (foundByPosition != null) {
-      foundByPosition.display();
+     try {
+         System.out.print("Enter position (index starts from 0): ");
+         int position = Integer.parseInt(scan.nextLine());
+         Student found = operations.searchByPosition(position);
+         found.display();
+     } catch (InvalidPositionException e) {
+         System.out.println("Error: " + e.getMessage());
      }
      break;
 
     case 6: // Update Student
-     System.out.print("Enter PRN to update: ");
-     prn = Long.parseLong(scan.nextLine());
-     System.out.print("Enter New Name: ");
-     name = scan.nextLine();
-     System.out.print("Enter New Branch: ");
-     branch = scan.nextLine();
-     System.out.print("Enter New Batch: ");
-     batch = scan.nextLine();
-     System.out.print("Enter New CGPA: ");
-     cgpa = Double.parseDouble(scan.nextLine());
+     try {
+        System.out.print("Enter PRN to update: ");
+        long prn = Long.parseLong(scan.nextLine());
+        System.out.print("Enter New Name: ");
+        String name = scan.nextLine();
+        System.out.print("Enter New Branch: ");
+        String branch = scan.nextLine();
+        System.out.print("Enter New Batch: ");
+        String batch = scan.nextLine();
+        System.out.print("Enter New CGPA: ");
+        double cgpa = Double.parseDouble(scan.nextLine());
 
-     operations.updateStudent(prn, name, branch, batch, cgpa);
-     break;
+        operations.updateStudent(prn, name, branch, batch, cgpa);
+     } catch (StudentNotFoundException | InvalidCGPAException e) {
+        System.out.println("Error: " + e.getMessage());
+     }
 
     case 7: // // Delete Student
-     System.out.print("Enter PRN to delete: ");
-     prn = Long.parseLong(scan.nextLine());
-     operations.deleteStudent(prn);
-     break;
+     try {
+        System.out.print("Enter PRN to delete: ");
+        long prn = Long.parseLong(scan.nextLine());
+        operations.deleteStudent(prn);
+     } catch (StudentNotFoundException e) {
+        System.out.println("Error: " + e.getMessage());
+     }
+    break;
 
     default:
      System.out.println("Invalid choice! Please enter a valid option.");
