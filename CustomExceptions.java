@@ -1,5 +1,7 @@
 // CustomExceptions.java
 
+package exceptions;
+
  class DuplicatePRNException extends Exception {
      public DuplicatePRNException(String message) {
          super(message);
