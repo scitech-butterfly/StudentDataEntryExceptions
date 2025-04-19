@@ -8,4 +8,10 @@ class StudentOperations {
   public StudentOperations() {
    this.students = new ArrayList<>();
   }
+
+  // Method to add students to the ArrayList
+  public void addStudents(Student student) {
+   students.add(student);
+   System.out.println("Student added.");
+  }
 }
