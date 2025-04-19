@@ -14,4 +14,11 @@ class StudentOperations {
    students.add(student);
    System.out.println("Student added.");
   }
+
+  // Method to Display Student Details
+  public void displayStudents() {
+   for (Student student : students) {
+    student.display();
+   }
+  }
 }
