@@ -21,4 +21,14 @@ class StudentOperations {
     student.display();
    }
   }
+
+  // Search Student by PRN
+  public Student searchByPRN(long prn) {
+   for (Student student : students) {
+    if (student.getPRN() == prn) {
+     return student;
+    }
+   }
+   return null;
+  }
 }
