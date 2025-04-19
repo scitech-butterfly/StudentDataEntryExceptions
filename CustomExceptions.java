@@ -17,3 +17,9 @@ class StudentNotFoundException extends Exception {
          super(message);
      }
  }
+
+class InvalidPositionException extends Exception {
+     public InvalidPositionException(String message) {
+         super(message);
+     }
+ }
