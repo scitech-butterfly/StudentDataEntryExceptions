@@ -28,14 +28,14 @@ class StudentOperations {
    }
   }
 
-  // Search Student by PRN
-  public Student searchByPRN(long prn) {
-   for (Student student : students) {
-    if (student.getPRN() == prn) {
-     return student;
-    }
-   }
-   return null;
+  //  searchByPRN to throw exception
+  public Student searchByPRN(long prn) throws StudentNotFoundException {
+     for (Student student : students) {
+         if (student.getPRN() == prn) {
+             return student;
+         }
+     }
+     throw new StudentNotFoundException("Student with PRN " + prn + " not found.");
   }
 
   // Search Student by Name
@@ -48,15 +48,13 @@ class StudentOperations {
    return null;
   }
 
-  // Search Student by Position (Index)
-  public Student searchByPosition(int position) {
-   if (position >= 0 && position < students.size()) {
-    return students.get(position); // Get the student at the given index
-   } else {
-    System.out.println("Invalid position! Please enter a valid index.");
-    return null; // Return null if the position is out of bounds
+  // Search Student by Position (Index) with exception
+   public Student searchByPosition(int position) throws InvalidPositionException {
+     if (position < 0 || position >= students.size()) {
+         throw new InvalidPositionException("Position out of range.");
+     }
+     return students.get(position);
    }
-  }
 
   // Update Student Details by PRN
   public boolean updateStudent(long prn, String name, String branch, String batch, double cgpa) {
