@@ -56,30 +56,27 @@ class StudentOperations {
      return students.get(position);
    }
 
-  // Update Student Details by PRN
-  public boolean updateStudent(long prn, String name, String branch, String batch, double cgpa) {
-   Student student = searchByPRN(prn);
-   if (student != null) {
-    student.setName(name);
-    student.setBranch(branch);
-    student.setBatch(batch);
-    student.setCGPA(cgpa);
-    System.out.println("Student details updated.");
-    return true;
+  // Update Student Details by PRN with exceptions
+   public void updateStudent(long prn, String name, String branch, String batch, double cgpa) throws StudentNotFoundException, InvalidCGPAException {
+     Student student = searchByPRN(prn);
+     if (cgpa < 0.0 || cgpa > 10.0) {
+         throw new InvalidCGPAException("CGPA must be between 0.0 and 10.0.");
+     }
+     student.setName(name);
+     student.setBranch(branch);
+     student.setBatch(batch);
+     student.setCGPA(cgpa);
+     System.out.println("Student details updated.");
    }
-   System.out.println("Student not found!");
-   return false;
-  }
 
-  // Delete Student by PRN
-  public boolean deleteStudent(long prn) {
-   Student student = searchByPRN(prn);
-   if (student != null) {
-    students.remove(student);
-    System.out.println("Student removed successfully.");
-    return true;
+  // Delete Student by PRN with custom exception
+   public boolean deleteStudent(long prn) throws StudentNotFoundException {
+     Student student = searchByPRN(prn);
+     if (student != null) {
+         students.remove(student);
+         System.out.println("Student removed successfully.");
+         return true;
+     }
+     throw new StudentNotFoundException("Cannot delete: Student with PRN " + prn + " not found.");
    }
-   System.out.println("Student not found!");
-   return false;
-  }
 }
